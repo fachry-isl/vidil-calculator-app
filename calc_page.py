@@ -153,7 +153,7 @@ with col1:
         st.subheader("License")
         license_package = st.selectbox("Select License Package", options=["Smart Dashboard for Video Intelligence License"], index=None)
         if license_package != None:
-            costs[f'Smart Dashboard License'] = 72_900_000
+            costs[f'Smart Dashboard License'] = 72_900_000 
         
         
     # Cloud Section
@@ -162,7 +162,7 @@ with col1:
         cloud_package = st.selectbox("Select Cloud Plan", options=list(cloud_plan.keys()), index=None)
         cloud_quantity = st.number_input("Input Number of Months (Cloud)", min_value=1, value=1, step=1)
         if cloud_package != None:
-            costs[f'Cloud - {cloud_package}'] = cloud_plan[cloud_package] * cloud_quantity
+            costs[f'Cloud - {cloud_package} ({cloud_quantity} Months)'] = cloud_plan[cloud_package] * cloud_quantity
         
         
         st.write("Note: Include Maintenance & Warranty Services")
@@ -173,7 +173,7 @@ with col1:
         connectivity_package = st.selectbox("Select Connectivity Plan", list(connectivity_plan.keys()), index=None)
         connectivity_quantity = st.number_input("Input Number of Months (Quota)", min_value=1, value=1, step=1)
         if connectivity_package != None:
-            costs[f'Telkomsel Quota - {connectivity_package}'] = connectivity_plan[connectivity_package] * connectivity_quantity
+            costs[f'Telkomsel Quota - {connectivity_package} ({connectivity_quantity} Months)'] = connectivity_plan[connectivity_package] * connectivity_quantity
            
 
     # Additional Item Section
