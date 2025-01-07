@@ -91,12 +91,14 @@ with col1:
     # CCTV Section
     if include_cctv and not cctv_data.empty:
         st.subheader("CCTV")
-        cctv_options = cctv_data["Model"].tolist()  # Adjust column name
-        selected_cctv = st.selectbox("Select a CCTV Device", options= cctv_options, index=None)
+        #cctv_options = cctv_data["Model"].tolist()  # Adjust column name
+        cctv_custom_name = cctv_data["Brand"] + " - " + cctv_data["Model"] + " - " + cctv_data["Resolution*"] + cctv_data["Industrial Grade*"].apply(lambda x: " - Industrial" if x.lower() == 'yes' else "")
+        selected_cctv = st.selectbox("Select a CCTV Device", options= cctv_custom_name, index=None)
         if selected_cctv:
+            selected_cctv = selected_cctv.split(" - ")[1]
             cctv_details = cctv_data[cctv_data["Model"] == selected_cctv].iloc[0]
             cctv_price = cctv_details["Price"]  # Adjust column name
-            st.write(f"{selected_cctv} - Rp.{cctv_price:,.0f}")
+            st.write(f"Unit Price: Rp.{cctv_price:,.0f}")
             cctv_quantity = st.number_input("Number of CCTVs", min_value=1, value=1, step=1)
             unit_price[f'{selected_cctv}'] = cctv_price
             costs[f'{selected_cctv}x({cctv_quantity})'] = cctv_quantity * cctv_price
@@ -104,12 +106,14 @@ with col1:
     # DVR/NVR Section
     if include_dvr_nvr and not dvr_nvr_data.empty:
         st.subheader("DVR/NVR")
-        dvr_nvr_options = dvr_nvr_data["Model"].tolist()
-        selected_dvr_nvr = st.selectbox("Select a DVR/NVR Device", options= dvr_nvr_options, index=None)
+        #dvr_nvr_options = dvr_nvr_data["Model"].tolist()
+        dvr_nvr_custom_name = dvr_nvr_data["Brand"] + " - " + dvr_nvr_data["Model"] + " - " + dvr_nvr_data["Channel"].apply(lambda x: f"{x:,.0f}") + " Channels"
+        selected_dvr_nvr = st.selectbox("Select a DVR/NVR Device", options= dvr_nvr_custom_name, index=None)
         if selected_dvr_nvr:
+            selected_dvr_nvr = selected_dvr_nvr.split(" - ")[1]
             dvr_nvr_details = dvr_nvr_data[dvr_nvr_data["Model"] == selected_dvr_nvr].iloc[0]
             dvr_nvr_price = dvr_nvr_details["Price"]
-            st.write(f"{selected_dvr_nvr} - {dvr_nvr_details['Channel']:,.0f} Channels - Rp.{dvr_nvr_price:,.0f}")
+            st.write(f"Unit Price: Rp.{dvr_nvr_price:,.0f}")
             dvr_nvr_quantity = st.number_input("Number of DVR/NVR Units", min_value=1, value=1, step=1)
             unit_price[f'{selected_dvr_nvr}'] = dvr_nvr_price
             costs[f'{selected_dvr_nvr}x({dvr_nvr_quantity})'] = dvr_nvr_quantity * dvr_nvr_price
