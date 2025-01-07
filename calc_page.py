@@ -31,19 +31,6 @@ cloud_plan = {
     "Dedicated": 21_160_203
 }
 
-
-# if "CCTV_name" not in st.session_state:
-#     st.session_state.cctv_name = ""
-# if "CCTV_price" not in st.session_state:
-#     st.session_state.cctv_price = ""
-# if "DVR_name" not in st.session_state:
-#     st.session_state.dvr_name = ""
-# if "DVR_price" not in st.session_state:
-#     st.session_state.dvr_price = ""
-# if ""  
-    
-    
-
 # App Title
 st.title("CCTV Solution Cost Calculator")
 
