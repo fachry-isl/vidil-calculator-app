@@ -31,6 +31,19 @@ cloud_plan = {
     "Dedicated": 21_160_203
 }
 
+
+# if "CCTV_name" not in st.session_state:
+#     st.session_state.cctv_name = ""
+# if "CCTV_price" not in st.session_state:
+#     st.session_state.cctv_price = ""
+# if "DVR_name" not in st.session_state:
+#     st.session_state.dvr_name = ""
+# if "DVR_price" not in st.session_state:
+#     st.session_state.dvr_price = ""
+# if ""  
+    
+    
+
 # App Title
 st.title("CCTV Solution Cost Calculator")
 
@@ -72,6 +85,7 @@ col1, col2 = st.columns([2, 1])
 # Costs dictionary to hold calculated costs
 unit_price = {}
 costs = {}
+cctv_quantity = 0
 
 with col1:
     # CCTV Section
@@ -173,7 +187,7 @@ with col1:
         connectivity_package = st.selectbox("Select Connectivity Plan", list(connectivity_plan.keys()), index=None)
         connectivity_quantity = st.number_input("Input Number of Months (Quota)", min_value=1, value=1, step=1)
         if connectivity_package != None:
-            costs[f'Telkomsel Quota - {connectivity_package} ({connectivity_quantity} Months)'] = connectivity_plan[connectivity_package] * connectivity_quantity
+            costs[f'Telkomsel Quota - {connectivity_package} - {cctv_quantity} Device - ({connectivity_quantity} Months)'] = (connectivity_plan[connectivity_package]*cctv_quantity) * connectivity_quantity
            
 
     # Additional Item Section
@@ -192,17 +206,24 @@ with col1:
 with col2:
     st.subheader("Price Breakdown")
     if costs:
-        if include_cctv:
-                st.markdown("##### CCTV") 
         for item, cost in costs.items():
             st.write(f"{item}: Rp.{cost:,.0f}")
 
-    #st.divider()
+    st.divider()
     
     total_cost = sum(costs.values()) + st.session_state.get('additional_cost_total', 0)
+    
     st.metric(label="Estimated Total Cost", value=f"Rp.{total_cost:,.0f}")
+    
+    st.write(f"Margin 25% : Rp.{total_cost*1.2:,.0f}")
+    st.write(f"Margin 30% : Rp.{total_cost*1.3:,.0f}")
+    st.write(f"Margin 35% : Rp.{total_cost*1.35:,.0f}")
     
     
     st.subheader("Compability")
-    st.warning("Your selected CCTV and DVR/NVR are not compatible.")
-    st.warning("Your selected CCTV and Installation are not compatible.")
+    
+    st.success("Your selected CCTV and DVR/NVR are compatible.")
+    st.success("Your selected CCTV and Installation are compatible.")
+    
+    # st.warning("Your selected CCTV and DVR/NVR are not compatible.")
+    # st.warning("Your selected CCTV and Installation are not compatible.")
