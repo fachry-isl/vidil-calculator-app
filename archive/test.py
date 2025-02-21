@@ -1,20 +1,28 @@
 import streamlit as st
-import pandas as pd
-from streamlit_gsheets import GSheetsConnection
+import extra_streamlit_components as stx
 
-@st.cache_data
-def fetch_data_from_google_sheet(sheet_id, worksheet_name):
-    """
-    Fetch data from a specific worksheet of the Google Sheet.
-    """
-    # Create a connection object.
-    conn = st.connection("gsheets", type=GSheetsConnection)
+st.code("import extra_streamlit_components as stx")
+chosen_id = stx.tab_bar(data=[
+    stx.TabBarItemData(id="tab1", title="✍️ Write!", description="Display stuff in the sidebar"),
+    stx.TabBarItemData(id="tab2", title="💔 Nothing", description="Don't show anything")])
+
+placeholder = st.sidebar.container() 
+
+if chosen_id == "tab1":
+    placeholder.markdown(f"## Welcome to `{chosen_id}`")
+    placeholder.info(f"Since we are in {chosen_id}, let's add a bunch of widgets")
+    placeholder.image("https://placekitten.com/g/400/200",caption=f"Meowhy from {chosen_id}")
+    placeholder.slider("A slider",0,10,5,1)
+    placeholder.checkbox("A checkbox",True)
+    placeholder.button("A button")
     
-    # Fetch data from the specified worksheet
-    df = conn.read(spreadsheet_id=sheet_id, worksheet=worksheet_name)
-    return pd.DataFrame(df)
+    placeholder.metric("A metric", 123)
 
-SHEET_ID = "1wtbl4cC3Qc98FFM6KFjR1-k9fRQ7uC-Go4pKaancUAc"
-st.write("CCTV Data:", fetch_data_from_google_sheet(SHEET_ID, "Camera and CCTV(App)").head())
-st.write("DVR/NVR Data:", fetch_data_from_google_sheet(SHEET_ID, "NVR/DVR(App)").head())
-st.write("Installation Data:", fetch_data_from_google_sheet(SHEET_ID, "Installation(App)").head())
+elif chosen_id == "tab2":
+    #placeholder = st.sidebar.container()
+    placeholder.write("TAB 2 STATE")
+
+st.markdown("""
+**** 
+### Don't forget to `pip install extra_streamlit_components`
+# """)

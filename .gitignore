@@ -1,5 +1,8 @@
 # Ignore virtual environment
 venv/
+assets/
+linux_venv/
+archive/
 
 # Ignore secrets file
 secrets.toml

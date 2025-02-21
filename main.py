@@ -6,8 +6,7 @@ def how_to_page():
     st.image("flowchart_app.jpg", use_container_width=True)
 
 pg = st.navigation([
-    st.Page(how_to_page, title="How To Use", icon="💡"),
-    st.Page("cctv_finder_page.py", title="1. Find your CCTV", icon="📷"),
-    st.Page("calc_page.py", title="2. Solution Calculator", icon="🧮")
+    st.Page("cctv_recommender.py", title="CCTV Recommender", icon="📷"),
+    st.Page("calculator_page.py", title="Solution Calculator", icon="🧮")
 ])
 pg.run()
