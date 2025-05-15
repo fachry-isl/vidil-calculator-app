@@ -4,5 +4,11 @@ assets/
 linux_venv/
 archive/
 
+# Ignore simple_llm.py
+simple_llm.py
+form.py
+history.py
+test.py
+
 # Ignore secrets file
 secrets.toml

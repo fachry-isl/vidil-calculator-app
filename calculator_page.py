@@ -6,7 +6,7 @@ import plotly.express as px
 import re
 from helper import cloud_plan, connectivity_plan, data_usage, color_discrete_map, appliance_managed_service, compression_hardware
 
-st.set_page_config(layout="wide")
+#st.set_page_config(layout="wide")
 
 # Google Sheets API setup
 def fetch_data_from_google_sheet(sheet_id, worksheet_name):
@@ -97,7 +97,7 @@ with col1:
             export_select_data["CCTV"] = f"CCTV;{cctv_details['Brand']} - {cctv_model_selected} - {cctv_details['Resolution*']};One Time;{cctv_quantity};{int(cctv_price)};{int(cctv_price * cctv_quantity)}"
 
             # Handle Connectivity Plan Data
-            cctv_resolution = cctv_details['Resolution*']                
+            cctv_resolution = cctv_details['Resolution*']                                   
     # DVR/NVR Section
     if include_dvr_nvr and not dvr_nvr_data.empty:
         st.subheader("DVR/NVR")
@@ -242,6 +242,14 @@ with col1:
             costs[f'Managed Service - {managed_service} ({managed_service_duration} Year)'] = appliance_managed_service[managed_service] * managed_service_duration
             export_select_data["Managed Service"] = f"Managed Service;{managed_service};Recurring;{managed_service_duration};{appliance_managed_service[managed_service]};{appliance_managed_service[managed_service] * managed_service_duration}"
             recurring_flag = True
+
+# st.write(costs)
+
+# # Save Costs to Session State
+# button_save_history = st.button("Save Costs")
+
+# if button_save_history:
+#     st.session_state['cctv_costs_history'] = costs
 
 # Price Breakdown
 with col2:

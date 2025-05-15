@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 import extra_streamlit_components as stx
+#st.set_page_config(layout="wide")
+
 
 st.title("CCTV Recommendation System")
 
